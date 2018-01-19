@@ -40,7 +40,9 @@ The author come up with two programmable circuits, which requires O(n^2) gates. 
 #####Lossless Quantum Data Compression Scheme:(by Kim Bostrom and Timo Felbinger)\
 A mapping from source space to code space.(Based on density operator)
 
-__1. Extension-Brute Force__
+__Some extensions:__
+
+__1. Brute Force__
 
 __2. Improved BF Algorithm__
 
