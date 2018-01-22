@@ -2,8 +2,9 @@
 
 import numpy as np
 import projectq
-from projectq.ops import Measure, H, X
+from projectq.ops import Measure, H, X, C
 from projectq.meta import Control
+from projectq.backends import Simulator
 
 class qd_autocompresser():
     def __init__(self, data):
@@ -16,9 +17,9 @@ class qd_autocompresser():
         self.eng = projectq.MainEngine()
         self.qubits = ()
         # add a auxiliary qubit:
-        self.qubits += (self.eng.allocate_qubit(),)
+        self.qubits += (self.eng.allocate_qubit()[0],)
         for i in range(int(self.dimension)):
-            self.qubits += (self.eng.allocate_qubit(),)
+            self.qubits += (self.eng.allocate_qubit()[0],)
 
         # the follows operation would produce a dictionary between position and the corresponding
         # massage that the position stores
@@ -43,17 +44,23 @@ class qd_autocompresser():
             if i != 0:
                 H | self.qubits[i]
 
+
         for i in self.dict_V_P:
             if self.dict_V_P[i] == '1':
                 for j in range(len(i)):
                     if i[j] == '0':
                         X | self.qubits[j + 1]
-                with Control(self.eng, self.qubits[1]):
-                    with Control(self.eng, self.qubits[2]):
-                        X | self.qubits[0]
+                # with Control(self.eng, self.qubits[1]):
+                #     with Control(self.eng, self.qubits[2]):
+                #         with Control(self.eng, self.qubits[3]):
+                #             X | self.qubits[0]
+
+                C(X, self.dimension) | (self.qubits[1:], self.qubits[0])
+
                 for j in range(len(i)):
                     if i[j] == '0':
                         X | self.qubits[j + 1]
+
 
     def Measure(self):
         for i in range(len(self.qubits)):
@@ -67,9 +74,7 @@ class qd_autocompresser():
         print(result)
 
 
-a = qd_autocompresser('1010')
-print(a.dict_V_P)
+a = qd_autocompresser('10101010')
+print(type(a.qubits[0]))
 a.Control()
 a.Measure()
-
-
