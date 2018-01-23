@@ -26,7 +26,14 @@ nqubits gate requires exponential single and CNot gates, the total gates require
  expand exponentially. Thus, it is not efficient to implement such method.
  
 ####2.2 Improved QImR.
+As discussed above, the main reason why this method is not efficient is that the large amount of high dimensional controlled 
+gates. To reduce this, it is worthy to notice that during the controlled operation, same operation is implemented to different 
+positions. For example, if position |00> and |01> have the same color, we could only control the first qubit, let alone the 
+second one. Hence, the number of controlled gates reduce from two to one, and the number of controlled qubits in the controlled
+gate also has a reducing. 
 
+In generally, to implement the above improved methods, it is necessary to dividing different position into groups where 
+they has the same color. In every group, calculate the Boolean expression and try to __minimize__ it.
 
 ####2.3 Example of improved QImR.
 A 2 * 2 image, which 
