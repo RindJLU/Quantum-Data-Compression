@@ -18,7 +18,11 @@ The following discussion is based on the paper [[A Flexible Representation of Qu
 A classical image which sized 2^n * 2^n in terms of pixel can be stored in only 1 + 2n qubits, where the first qubit used 
 to control the color information, while the other 2n qubit stores the corresponding position of the image.
 
-Thus a coded qubits having the wavefunction:  I(θ) = (cos θ i |0> + sin θ i |1>) ⊗ |i>.
+Thus a coded qubits having the wavefunction:\
+![wave function](https://github.com/RindJLU/Quantum-Data-Compression/blob/master/pictures/Screenshot%20from%202018-01-23%2016-27-49.png)\
+
+Given a simple image with only four positions:\
+![simple image](https://github.com/RindJLU/Quantum-Data-Compression/blob/master/pictures/Screenshot%20from%202018-01-23%2016-29-02.png)
 
 For every position, which has its index i, the corresponding color was stored in θ. To achieve this, a straightforward way 
 is to control every position individually. In this way, a totally 2^n * 2^n nqubits controlled gates are required. Since 
@@ -36,8 +40,16 @@ In generally, to implement the above improved methods, it is necessary to dividi
 they has the same color. In every group, calculate the Boolean expression and try to __minimize__ it.
 
 ####2.3 Example of improved QImR.
-A 2 * 2 image, which 
+A 2^3 * 2^3 two-color image, which requires (1 + 2*3) qubits for the representation. See the following picture:\
+![Example](https://github.com/RindJLU/Quantum-Data-Compression/blob/master/pictures/Screenshot%20from%202018-01-23%2016-30-26.png)
 
+If we use the classical method, we would need 64 six-qubit Controlled operation, which is a waste of resource. Here we noticed
+that there are only two colors, so it is easy to divide the positions into two groups, blue and red, represented by the 
+instinct angle theta1 and theta2, respectively. Next, encoding the position into binary index, so the positions of blue block
+could be written as follows:\
+![an example of 8 by 8 picture](https://github.com/RindJLU/Quantum-Data-Compression/blob/master/pictures/Screenshot%20from%202018-01-23%2016-31-03.png)\
+In the end, to represent the blue color, only one three-qubit controlled gate are required, which is a huge reduction compared
+with eight six-qubit controlled gate.
 
 
 ###3. Quantum Data Storing: a dimension-reduced application of QImR.
