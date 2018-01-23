@@ -6,15 +6,11 @@ Quantum data compression, in which the data could be a list of number, a picture
 Take the representation of pictures as an example, many quantum image representation(QImR) has been discussed as follows.
 
 
-[A Survey of Quantum Image Representations]https://doi.org/10.1007/s11128-015-1195-6
-
-[Processing and Retrieving an Image Using Quantum Mechanics]https://doi.org/10.1117/12.485960
-
-[A Novel Enhanced Quantum Representation of Digital Images]https://doi.org/10.1007/s11128-013-0567-z
-
-
+[A Survey of Quantum Image Representations]https://doi.org/10.1007/s11128-015-1195-6<br>
+[Processing and Retrieving an Image Using Quantum Mechanics]https://doi.org/10.1117/12.485960<br>
+[A Novel Enhanced Quantum Representation of Digital Images]https://doi.org/10.1007/s11128-013-0567-z<br>
 [A Flexible Representation of Quantum Images for Polynomial Preparation, Image Compression, and Processing Operations]
-https://doi.org/10.1007/s11128-010-0177-y
+https://doi.org/10.1007/s11128-010-0177-y<br>
 
 The following discussion is based on the paper [[A Flexible Representation of Quantum Images for Polynomial Preparation, Image Compression, and Processing Operations]].
 
