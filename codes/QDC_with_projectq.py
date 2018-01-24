@@ -71,7 +71,7 @@ class qd_autocompresser():
         result = ''
         for qubit in self.qubits:
             result = result + str(int(qubit))
-        print(result)
+        print('Measured ' + result[0] + ' in the position ' + result[1:])
 
 
 a = qd_autocompresser('10101010')
