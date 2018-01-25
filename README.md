@@ -64,7 +64,7 @@ as well as the quantum circuits design. Suppose there is a four bit classical nu
  is listed as follows.
  
 To store a number with 2^1 * 2^1 bits, we could use 1 + 2*1 qubits to store it. In the first place, create three qubits
-with initial state |0>. Next, to the qubits which represent the position of the data, implementing a Haｄａｍａｒｄ operation.
+with initial state |0>. Next, to the qubits which represent the position of the data, implementing a Hadamard operation.
 After that, the 2 qubits have wave function (1/2)(|00> +　|01>　+ |10> + |11>), four component represent four positions
 of the binary number. The following is to control the bit representing the 'color' using control gate. For our example, the
 first bit is linked to the position |00>, and it has the 'color' 0, so implementing C(I, 2), where I is the unit matrix, and 
