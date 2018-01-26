@@ -14,11 +14,11 @@ class QImEncoder(object):
         data (ndarray): a array of one bit binary number where N is the length of the data.
         dimension (int): the number of qubits required to represent the data.
 
-        eng:
+        eng: MainEngine
         qubits:
 
     Returns:
-
+        Measured x in the position xxxx
 
     """
 
@@ -42,20 +42,20 @@ class QImEncoder(object):
     def quStatePrep(self, cheat=False):
         """prepare quantum state for information storing"""
 
-        All(H) | self.qubits[1:]# prepare the qubits for position reference, the first(qubit[0]) remains
+        All(H) | self.qubits[1:]  # prepare the qubits for position reference, the first(qubit[0]) remains
         # unchanged for representing corresponding value.
 
         for p_ref_index in range(len(self.data)):  # p_ref_index is the index of the position of the data.
-            while self.data[p_ref_index] == 1: # only the data in a position is 1, an X operation will be implemented.
-                for i in self.dimension:  # reshape the qubit to represent the corresponding position.
-                    if self.posRef[p_ref_index][i] == 1:
-                        X | qubits[i]
+            if self.data[p_ref_index] == 1:  # only the data in a position is 1, an X operation will be implemented
+                for i in range(self.dimension):  # reshape the qubit state to represent the corresponding position.
+                    if self.posRef[p_ref_index][i] == '0':
+                        X | self.qubits[i + 1]
 
                 C(X, self.dimension) | (self.qubits[1:], self.qubits[0])  # controlled X operation to flip |0> to |1>.
 
-                for i in self.dimension:  # reshape the qubit to its original state
-                    if self.posRef[p_ref_index][i] == 1:
-                        X | qubits[i]
+                for i in range(self.dimension):  # reshape the qubit to its original state
+                    if self.posRef[p_ref_index][i] == '0':
+                        X | self.qubits[i + 1]
 
         if cheat:
             self._cheat()
@@ -76,15 +76,15 @@ class QImEncoder(object):
 
     def _measure(self):
         Measure | self.qubits
-
         self.eng.flush()
 
         result = ''
         for qubit in self.qubits:
             result = result + str(int(qubit))
         print('Measured {} in the position {}'.format(result[0], result[1:]))
+        # print(self.posRef, self.dimension)
+        # print(result)
 
 if __name__ == '__main__':
-    a = QImEncoder('1010')
-    print(type(a.qubits[0]))
+    a = QImEncoder(np.array([1, 0, 1, 0]))
     a.quStatePrep()
