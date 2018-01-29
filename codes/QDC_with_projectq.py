@@ -1,5 +1,6 @@
-import numpy as np
+import copy
 import projectq
+import numpy as np
 from projectq.ops import Measure, H, X, C, All
 
 
@@ -11,14 +12,17 @@ class QImEncoder(object):
     into quantum state, then retrieving information through measurement.
 
     Args:
-        data (ndarray): a array of one bit binary number where N is the length of the data.
+        data (input)(ndarray): a array of one bit binary number where N is the length of the data.
         dimension (int): the number of qubits required to represent the data.
+        numQuRep(int): the number of qubits used to represent the position
+        numQuCol(int): the number of qubits used to represent the color
+        posRef(ndarray): a three dimensional array,
 
         eng: MainEngine
         qubits:
 
     Returns:
-        Measured x in the position xxxx
+        Measurement results Or Wavefunction
 
     """
 
@@ -35,7 +39,7 @@ class QImEncoder(object):
         self.eng = projectq.MainEngine()
         self.qubits = self.eng.allocate_qureg(self.numQuCol + self.numQuRep)  # create one auxiliary qubit.
 
-    def quStatePrep(self, cheat=False):
+    def quStatePrep(self, cheat=True):
         """prepare quantum state for information storing"""
 
         All(H) | self.qubits[self.numQuCol:]  # prepare the qubits for position reference, the first(qubit[0]) remains
@@ -62,14 +66,9 @@ class QImEncoder(object):
     def _cheat(self):
 
         self.eng.flush()
-        order, vec = self.eng.backend.cheat()
-
+        mapping, wavefunction = copy.deepcopy(self.eng.backend.cheat())
+        print("The full wavefunction is: {}".format(wavefunction))
         Measure | self.qubits
-
-        result = ''
-        for qubit in self.qubits:
-            result = result + str(int(qubit))
-        print('Measured {} in the position {}, {}'.format(result[0], result[1:int(np.log2(self.dim[0]))+1], result[int(np.log2(self.dim[0]))+1:]))
 
     def _measure(self):
         Measure | self.qubits
