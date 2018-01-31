@@ -57,7 +57,7 @@ In the end, to represent the blue color, only one three-qubit controlled gate ar
 with eight six-qubit controlled gate.
 
 
-### 3. Quantum Data Storing: a dimension-reduced application of QImR.
+### 3. Quantum Data Storing: a dimension-reduced application of FRQI.
 Suppose we storing a list of data instead of a picture, the main difference is that the former has less color dimension.
 A binary number has only two 'colors', black and white. This greatly simplifies the quantum representation of binary number,
 as well as the quantum circuits design. Suppose there is a four bit classical number, say 0101, the representation procedure
@@ -73,4 +73,10 @@ flip the 'color' index from |0> to |1>. The same for other positions.
 
 By doing those operations, the final wavefunction becomes (1/2)(|0>⊗|00> + |1>⊗|01> + |0>⊗|10> + |1>⊗|11>). To extract 
 message from the wavefunction, first measuring the position part, and then the 'color' part.
+
+### NEQR: a 
+Now let extent our model described in __3__, and use the similar model to store more complicated information such as a picture.
+ Consider a gary-scale picture with 256 different possible color in one position, we would need extra qubits to describe 
+the color information. The scheme is similar as in __3__, with enough qubits representing the different positions, but there 
+are 8 qubits, which could expanded to 256 subspace, to store the color information.
 
